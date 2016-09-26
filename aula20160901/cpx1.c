@@ -19,5 +19,4 @@ int main (){
     printf("%lf /_ %lf rad\n",cabs(soma),carg(soma));
     printf("%lf + %lf i\n",creal(prod),cimag(prod));
     printf("%lf /_ %lf rad\n",cabs(prod),carg(prod));
-
 return 0;}
