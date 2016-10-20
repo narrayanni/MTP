@@ -1,4 +1,4 @@
-#include <stdio.h>
+3#include <stdio.h>
 #define N 2
 #define M 4
 void recebeMatriz(float matriz[N][M]);

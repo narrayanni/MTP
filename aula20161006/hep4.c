@@ -4,7 +4,7 @@
 typedef struct {
 	char nome [32];
 	int idade;
-	
+
 }dados;
 dados* incluir(dados* a, int *n);
 void recebe(char tipo, void * endereco);
@@ -13,6 +13,7 @@ int main (){
 	dados* info;
 	int op, n=0;
 	info=(dados*)calloc(1,sizeof(dados));
+	do {
 	printf("Escolha o que deseja fazer:\n");
 	printf("Incluir dados, digite 1.\n");
 	printf("Excluir dados, digite 2.\n");
@@ -20,8 +21,12 @@ int main (){
 	recebe('i',&op);
 	if (op==1)
 	info=incluir(info, &n);
-	printf("%s %d", info[0].nome, info[0].idade);
-	
+	if(op==3)
+    mostra(info, n);
+
+	}while(op!=0);
+
+
 	return 0;
 }
 dados* incluir(dados* a, int *n)
@@ -34,12 +39,26 @@ dados* incluir(dados* a, int *n)
 	a=(dados*)realloc(a, (*n)+2);
 	(*n)++;
 	return a;
-}	
+}
+void mostra (dados* a, int n)
+{
 
+    int i;
+    printf ("DADOS:\n");
+    for (i=0;i<n; i++)
+        {
+     printf ("\nDado %d:\n", i+1);
+     printf ("Nome: %s\n", a[i].nome);
+     printf ("Idade: %d\n", a[i].idade);
+    }
+}
+dados* excluir (dados* info, int n)
+{
 
-
-
-
+    int x;
+    printf("Qual dado vc deseja excluir?\n");
+    recebe('i', &x);
+}
 
 void recebe(char tipo, void * endereco) {
     int c;

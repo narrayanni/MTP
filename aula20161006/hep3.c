@@ -1,30 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+char * iniciaTexto();
+char * recebeTexto();
 int main() {
-    char * texto = malloc(sizeof(char));
-    texto[0] = '\0';
-    printf("Entre com um texto:\n");
-    recebeTexto(texto);
-    printf("\n%s\n", texto);
+    char * texto;
+    printf("::: Inicio (para sair, tecle #,ENTER) :::::::::::\n");
+    texto = recebeTexto();
+    printf("\n::: Na memoria :::::::::::\n");
+    printf("%s\n", texto);
+    printf("\nTamanho da string: %d\n", strlen(texto));
+    free(texto);
     return 0;
 }
-
-void recebeTexto(char * texto) {
-    int c, tamanho = strlen(texto);
+char * iniciaTexto() {
+    char * texto = (char*) malloc(sizeof(char));
+    texto[0] = '\0';
+    return texto;
+}
+char * recebeTexto() {
+    char * texto = iniciaTexto();
     char * aux;
-    printf("%p",texto);
+    int c, tamanho = 0;
     do {
         c = getchar();
         if(c != '#') {
-            texto[tamanho] = c;
-            tamanho++;
-            aux = realloc(texto,(tamanho+1)*sizeof(char));
-            strcpy(aux,texto);
-            aux[tamanho] = '\0';
-            texto = aux;
+            aux = (char *) realloc(texto, tamanho+2);
+            if(aux != NULL) {
+                texto = aux;
+                texto[tamanho] = c;
+                tamanho++;
+                texto[tamanho] = '\0';
+            }
+            else printf("\n** Erro! Sem memoria! **\n");
         }
-    } while (c != '#');
-    printf("%p",texto);
+    } while(c != '#');
+    return texto;
 }
