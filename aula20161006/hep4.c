@@ -7,6 +7,8 @@ typedef struct {
 
 }dados;
 dados* incluir(dados* a, int *n);
+dados* excluir (dados* info, int *n);
+void mostra (dados* a, int n);
 void recebe(char tipo, void * endereco);
 void recebeSTR(char * endereco, int n);
 int main (){
@@ -18,15 +20,18 @@ int main (){
 	printf("Incluir dados, digite 1.\n");
 	printf("Excluir dados, digite 2.\n");
 	printf("Para ver todos os dados, digite 3.\n");
+	printf("Para sair, digite 0.\n");
 	recebe('i',&op);
 	if (op==1)
 	info=incluir(info, &n);
+	if(op==2)
+    info=excluir(info, &n);
 	if(op==3)
     mostra(info, n);
 
 	}while(op!=0);
 
-
+    free(info);
 	return 0;
 }
 dados* incluir(dados* a, int *n)
@@ -51,13 +56,24 @@ void mostra (dados* a, int n)
      printf ("Nome: %s\n", a[i].nome);
      printf ("Idade: %d\n", a[i].idade);
     }
+    free(a);
 }
-dados* excluir (dados* info, int n)
+dados* excluir (dados* info, int *n)
 {
 
-    int x;
+    dados* vet;
+    vet=(dados*)malloc(((*n)-1)*sizeof(dados));
+    int x, i, j;
     printf("Qual dado vc deseja excluir?\n");
     recebe('i', &x);
+    for (i=0, j=0; i<(*n); i++)
+    if(i!=(x-1)){
+    vet[j]=info[i];
+    j++;
+    }
+    (*n)--;
+    free(info);
+    return vet;
 }
 
 void recebe(char tipo, void * endereco) {
