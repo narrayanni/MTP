@@ -38,16 +38,14 @@ dados* incluir(dados* a, int *n)
 {
 	printf("Digite o nome: ");
 	recebeSTR(a[*n].nome,32);
-	//fgets(a[*n].nome,32,stdin);
 	printf("Digite a idade: ");
 	recebe('i', &a[*n].idade);
-	a=(dados*)realloc(a, (*n)+2);
+	a=(dados*)realloc(a, ((*n)+2)*sizeof(dados)); 
 	(*n)++;
 	return a;
 }
 void mostra (dados* a, int n)
 {
-
     int i;
     printf ("DADOS:\n");
     for (i=0;i<n; i++)
@@ -56,7 +54,6 @@ void mostra (dados* a, int n)
      printf ("Nome: %s\n", a[i].nome);
      printf ("Idade: %d\n", a[i].idade);
     }
-    free(a);
 }
 dados* excluir (dados* info, int *n)
 {
